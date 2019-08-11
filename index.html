@@ -10,23 +10,64 @@
     <script>
         $(document).ready(function(){
             //Todo conteúdo JQuery
-            $("#btSoma").click(function(){
-                var v1 = parseInt($("#f_v1").val());
-                var v2 = parseInt($("#f_v2").val());
-                var soma = v1 + v2;
-                $("#res").text(soma);
+           
+            var vtBanner = ["b1.png", "b2.png", "b3.png", "b4.png"];
+            var max = vtBanner.length - 1;
+            var i = 0;
+
+            $("#btAnte").text("<");
+            $("#btProx").text(">");
+            $("#banner").css("background-image", "url("+ vtBanner[i] +")");
+
+            $("#btAnte").click(function(){
+                troca(-1);
             });
+
+            $("#btProx").click(function(){
+                troca(1);
+            });
+
+            function troca(opr){
+                $("#banner").css("background-image", "url("+ vtBanner[i] +")").fadeOut(500, function(){
+                    i += opr;
+
+                    if(i > max) {
+                        i = 0;
+                    }else if(i < 0) {
+                        i = max;
+                    }
+                    
+                    $("#banner").css("background-image", "url("+ vtBanner[i] +")").fadeIn(500);
+                });
+            }
         });
     </script>
+    <style>
+        #banner{
+            margin: auto;
+            width: 960px;
+            height: 300px;
+            border: 1px solid #000;
+        }
+        #btAnte, #btProx{
+            line-height: 300px;
+            font-size: 50px;
+            color: rgba(0,0,0,0.25);
+            font-weight: bold;
+            cursor: pointer;
+        }
+        #btAnte{
+            float: left;
+        }
+        #btProx{
+            float: right;
+        }
+    </style>
 </head>
 <body>
-    <section id="f_calc">
-        <label>Valor 1</label>
-        <input type="text" id="f_v1" value="0"/><br/><br/>
-        <label>Valor 2</label>
-        <input type="text" id="f_v2" value="0"/><br/><br/>
-        <button id="btSoma">SOMAR</button>
-        <div id="res"></div>
+    <section id="banner">
+        <div id="btAnte"></div>
+        <div id="btProx"></div>
     </section>
 </body>
 </html>
